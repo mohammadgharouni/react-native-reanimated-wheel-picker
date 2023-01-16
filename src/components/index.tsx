@@ -39,7 +39,7 @@ export const Picker = <T extends Record<string, any> = Value>({
   outOfRangeColor = 'grey',
   selectedItemColor = 'black',
 }: PickerProps<T>) => {
-  const translateY = useSharedValue<number>(0);
+  const translateY = useSharedValue(0);
 
   const snapPoints = React.useMemo(
     () =>
@@ -70,7 +70,7 @@ export const Picker = <T extends Record<string, any> = Value>({
   }, [snapPoints, translateY, value, items, valueExtractor]);
 
   const handleChange = (index: number) => {
-    onChange && items[index] !== undefined && onChange(items[index] as T);
+    onChange && onChange(items[index] as T);
   };
 
   const maskElement = (

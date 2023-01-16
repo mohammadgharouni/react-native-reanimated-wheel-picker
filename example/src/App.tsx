@@ -1,8 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 
-import { StyleSheet, View, Text, Button } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { Picker } from 'react-native-reanimated-wheel-picker';
 
 const styles = StyleSheet.create({
@@ -26,7 +25,7 @@ for (let i = 0; i < 100; i++) {
   });
 }
 
-export default function App() {
+const PickerDemo = () => {
   const [value, setvalue] = React.useState<any>();
   // const defaultValue = 1990 - start;
 
@@ -35,8 +34,10 @@ export default function App() {
     return arr[index];
   };
 
+  console.log('value', value);
+
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.title}>What year were you born?</Text>
       <Button
         title="pick random"
@@ -89,6 +90,7 @@ export default function App() {
       </View>
 
       {/* <ItemPicker /> */}
-    </GestureHandlerRootView>
+    </View>
   );
-}
+};
+export default PickerDemo;

@@ -1,1 +1,1 @@
-export { PickerProps, Picker } from './components/index';
+export { Picker, PickerProps } from './components';

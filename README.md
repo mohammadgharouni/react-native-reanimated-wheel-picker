@@ -1,6 +1,6 @@
 # react-native-reanimated-wheel-picker
 
-animated component for picking items implemented with reanimated 2
+cross platform wheel picker
 
 ## Installation
 
