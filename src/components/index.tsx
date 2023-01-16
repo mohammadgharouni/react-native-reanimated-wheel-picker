@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import * as React from 'react';
 import GestureHandler from './gestureHandler';
 import Animated, {
@@ -8,10 +8,10 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {PickerItem} from './item';
-import {MaskView} from './maskview';
+import { PickerItem } from './item';
+import { MaskView } from './maskview';
 
-type Value = {label: string; value: number};
+type Value = { label: string; value: number };
 
 export interface PickerProps<T = any> {
   items: T[];
@@ -33,8 +33,8 @@ export const Picker = <T extends Record<string, any> = Value>({
   renderItem,
   itemHeight = 40,
   handlerStyle,
-  valueExtractor = item => item?.value,
-  labelExtractor = item => item?.label,
+  valueExtractor = (item) => item?.value,
+  labelExtractor = (item) => item?.label,
   visibleItems = 5,
   outOfRangeColor = 'grey',
   selectedItemColor = 'black',
@@ -46,22 +46,22 @@ export const Picker = <T extends Record<string, any> = Value>({
       new Array(items.length).fill(0).map((_, i) => {
         return -i * itemHeight;
       }),
-    [itemHeight, items.length],
+    [itemHeight, items.length]
   );
 
   const trxY = useAnimatedStyle(() => {
     return {
-      transform: [{translateY: translateY.value}],
+      transform: [{ translateY: translateY.value }],
     };
   });
 
   React.useEffect(() => {
     if (value) {
       const index = items.findIndex(
-        item => valueExtractor(item) === valueExtractor(value),
+        (item) => valueExtractor(item) === valueExtractor(value)
       );
       if (index > -1) {
-        translateY.value = withTiming(snapPoints[index], {
+        translateY.value = withTiming<number>(snapPoints[index] || 0, {
           duration: 500,
           easing: Easing.bezier(0.22, 1, 0.36, 1),
         });
@@ -70,7 +70,7 @@ export const Picker = <T extends Record<string, any> = Value>({
   }, [snapPoints, translateY, value, items, valueExtractor]);
 
   const handleChange = (index: number) => {
-    onChange && onChange(items[index]);
+    onChange && onChange(items[index] as T);
   };
 
   const maskElement = (
@@ -81,7 +81,8 @@ export const Picker = <T extends Record<string, any> = Value>({
           {
             paddingTop: (itemHeight * visibleItems) / 2 - itemHeight / 2,
           },
-        ]}>
+        ]}
+      >
         {items.map((item, index) => {
           return (
             <PickerItem
@@ -90,11 +91,12 @@ export const Picker = <T extends Record<string, any> = Value>({
               index={index}
               itemHeight={itemHeight}
               visibleItems={visibleItems}
-              title={labelExtractor(item)}>
+              title={labelExtractor(item)}
+            >
               {renderItem ? (
                 renderItem(item, index)
               ) : (
-                <Text style={{fontSize: 16}}> {labelExtractor(item)}</Text>
+                <Text style={{ fontSize: 16 }}> {labelExtractor(item)}</Text>
               )}
             </PickerItem>
           );
@@ -110,8 +112,9 @@ export const Picker = <T extends Record<string, any> = Value>({
         {
           maxHeight: itemHeight * visibleItems,
         },
-      ]}>
-      <MaskView {...{maskElement}}>
+      ]}
+    >
+      <MaskView {...{ maskElement }}>
         <View
           style={{
             height: itemHeight * Math.trunc(visibleItems / 2),

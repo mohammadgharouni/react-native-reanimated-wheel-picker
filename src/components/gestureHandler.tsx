@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {PanGestureHandler} from 'react-native-gesture-handler';
+import { StyleSheet } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
   Easing,
   runOnJS,
@@ -9,7 +9,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import {snapPoint} from 'react-native-redash';
+import { snapPoint } from 'react-native-redash';
 
 export interface GestureHandlerProps {
   translateY: SharedValue<number>;
@@ -43,7 +43,7 @@ const GestureHandler = ({
       const snapPointY = snapPoint(
         translateY.value,
         event.velocityY,
-        snapPoints,
+        snapPoints
       );
       const index = Math.abs(snapPointY / itemHeight);
 

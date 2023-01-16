@@ -1,5 +1,5 @@
-import React, {ReactNode} from 'react';
-import {StyleProp, StyleSheet, TextStyle, View} from 'react-native';
+import React, { ReactNode } from 'react';
+import { StyleProp, StyleSheet, TextStyle, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   SharedValue,
@@ -29,8 +29,8 @@ export const PickerItem = ({
       translateY.value / -itemHeight,
       [index - visibleItems / 2, index, index + visibleItems / 2],
       [-1, 0, 1],
-      Extrapolate.CLAMP,
-    ),
+      Extrapolate.CLAMP
+    )
   );
 
   const textAnimation = useAnimatedStyle(() => {
@@ -50,7 +50,7 @@ export const PickerItem = ({
     };
   });
   return (
-    <View style={[styles.textContainer, {height: itemHeight}]}>
+    <View style={[styles.textContainer, { height: itemHeight }]}>
       <Animated.Text style={[textAnimation, textStyle]}>
         {children}
       </Animated.Text>

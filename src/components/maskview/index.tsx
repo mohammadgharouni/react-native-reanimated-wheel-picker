@@ -1,5 +1,5 @@
 import MaskedView from '@react-native-masked-view/masked-view';
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react';
 
 export const MaskView = ({
   children,
@@ -9,7 +9,7 @@ export const MaskView = ({
   children: ReactNode;
 }) => {
   return (
-    <MaskedView {...{maskElement}} androidRenderingMode="software">
+    <MaskedView {...{ maskElement }} androidRenderingMode="software">
       {children}
     </MaskedView>
   );
