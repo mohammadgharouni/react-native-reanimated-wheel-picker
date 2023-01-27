@@ -1,14 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Picker } from 'react-native-reanimated-wheel-picker';
+import { days, months, years, DemoItem } from './constants';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    backgroundColor: 'black',
   },
   title: {
     color: 'white',
@@ -16,39 +18,19 @@ const styles = StyleSheet.create({
     marginBottom: 31,
   },
 });
-const start = 1950;
-const items: { value: number; title: string }[] = [];
-for (let i = 0; i < 100; i++) {
-  items.push({
-    value: start + i,
-    title: `${start + i}`,
-  });
-}
 
 const PickerDemo = () => {
-  const [value, setvalue] = React.useState<any>();
-  // const defaultValue = 1990 - start;
-
-  const pickRandomFromArray = (arr: any) => {
-    const index = Math.floor(Math.random() * arr.length);
-    return arr[index];
-  };
-
-  console.log('value', value);
+  const [selectedDay, setselectedDay] = React.useState<DemoItem>();
+  const [selectedMonth, setselectedMonth] = React.useState<DemoItem>();
+  const [selectedYear, setselectedYear] = React.useState<DemoItem>();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>What year were you born?</Text>
-      <Button
-        title="pick random"
-        onPress={() => {
-          const randomValue = pickRandomFromArray(items);
-          setvalue(randomValue);
-        }}
-      />
+
       <View
         style={{
-          backgroundColor: 'white',
+          backgroundColor: 'black',
           flex: 1,
           maxHeight: 250,
           width: '100%',
@@ -57,39 +39,47 @@ const PickerDemo = () => {
         }}
       >
         <Picker
-          {...{ items }}
-          onChange={(val) => setvalue(val)}
-          value={value}
+          items={days}
+          onChange={(val) => setselectedDay(val)}
+          value={selectedDay}
           itemHeight={40}
           labelExtractor={(item) => item.title}
           valueExtractor={(item) => item.value}
           renderItem={(item) => (
-            <Text style={{ color: 'red' }}>{item.title}</Text>
+            <Text style={{ color: 'green' }}>{item.title}</Text>
           )}
-          outOfRangeColor="blue"
           handlerStyle={{ borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }}
+          outOfRangeColor="green"
+          selectedItemColor="green"
         />
         <Picker
-          {...{ items }}
-          onChange={(val) => setvalue(val)}
-          value={value}
+          items={months}
+          onChange={(val) => setselectedMonth(val)}
+          value={selectedMonth}
           itemHeight={40}
           labelExtractor={(item) => item.title}
           valueExtractor={(item) => item.value}
-          selectedItemColor="red"
+          renderItem={(item) => (
+            <Text style={{ color: 'white' }}>{item.title}</Text>
+          )}
+          outOfRangeColor="white"
+          selectedItemColor="white"
         />
         <Picker
-          {...{ items }}
-          onChange={(val) => setvalue(val)}
-          value={value}
+          items={years}
+          onChange={(val) => setselectedYear(val)}
+          value={selectedYear}
           itemHeight={40}
           labelExtractor={(item) => item.title}
           valueExtractor={(item) => item.value}
           handlerStyle={{ borderTopRightRadius: 8, borderBottomRightRadius: 8 }}
+          renderItem={(item) => (
+            <Text style={{ color: 'red' }}>{item.title}</Text>
+          )}
+          outOfRangeColor="red"
+          selectedItemColor="red"
         />
       </View>
-
-      {/* <ItemPicker /> */}
     </View>
   );
 };

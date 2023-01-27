@@ -1,5 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
 import * as React from 'react';
 import GestureHandler from './gestureHandler';
 import Animated, {
@@ -11,9 +18,9 @@ import Animated, {
 import { PickerItem } from './item';
 import { MaskView } from './maskview';
 
-type Value = { label: string; value: number };
+type Value = { label: string; value: any };
 
-export interface PickerProps<T = any> {
+export interface PickerProps<T = any> extends ViewProps {
   items: T[];
   onChange?: (value: T) => void;
   value?: T;
@@ -21,7 +28,7 @@ export interface PickerProps<T = any> {
   itemHeight?: number;
   handlerStyle?: StyleProp<ViewStyle>;
   labelExtractor?: (item: T) => string;
-  valueExtractor?: (item: T) => number;
+  valueExtractor?: (item: T) => number | string;
   visibleItems?: number;
   outOfRangeColor?: string;
   selectedItemColor?: string;
@@ -38,6 +45,7 @@ export const Picker = <T extends Record<string, any> = Value>({
   visibleItems = 5,
   outOfRangeColor = 'grey',
   selectedItemColor = 'black',
+  ...rest
 }: PickerProps<T>) => {
   const translateY = useSharedValue(0);
 
@@ -113,6 +121,7 @@ export const Picker = <T extends Record<string, any> = Value>({
           maxHeight: itemHeight * visibleItems,
         },
       ]}
+      {...rest}
     >
       <MaskView {...{ maskElement }}>
         <View
