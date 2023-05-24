@@ -32,25 +32,19 @@ const GestureHandler = ({
       const top = event.translationY + ctx.startY;
       translateY.value = withSpring(top, {
         velocity: event.velocityY,
+        damping: 15,
+        stiffness: 150,
       });
+      ctx.top = top;
     },
-    onEnd: (event, ctx: any) => {
-      const top = event.translationY + ctx.startY;
-      const closest = snapPoints.reduce(function (prev, curr) {
-        return Math.abs(curr - top) < Math.abs(prev - top) ? curr : prev;
+    onEnd(event, ctx: any) {
+      const snapPointY = snapPoint(ctx.top, event.velocityY, snapPoints);
+      translateY.value = withTiming(snapPointY, {
+        duration: 300,
+        easing: Easing.out(Easing.ease),
       });
 
-      const snapPointY = snapPoint(
-        translateY.value,
-        event.velocityY,
-        snapPoints
-      );
       const index = Math.abs(snapPointY / itemHeight);
-
-      translateY.value = withTiming(closest, {
-        duration: 500,
-        easing: Easing.bezier(0.35, 1, 0.36, 1),
-      });
       onChange && runOnJS(onChange)(index);
     },
   });

@@ -8,7 +8,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { PickerItem } from './item';
+import { PickerItem } from './pickerItem';
 import { MaskView } from './maskview';
 
 type Value = { label: string; value: number };
